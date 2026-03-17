@@ -1,38 +1,16 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sistem-manajemen-kantin",
-  "main": "src/index.ts",
-  "compatibility_date": "2026-03-17"
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "sistem-manajemen-kantin",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-03-17",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "sistem_manajemen_kantin_db",
+			"database_name": "sistem-manajemen-kantin-db",
+			"database_id": "46dc5da6-bf1b-405f-961f-8f43cd75d104"
+		}
+	]
 }
