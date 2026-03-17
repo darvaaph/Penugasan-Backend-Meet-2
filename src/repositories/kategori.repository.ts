@@ -20,3 +20,11 @@ export const createKategori = async (db: DB, nama_kategori: string) => {
         created_at: new Date().toISOString()
     });
 }
+
+export const updateKategori = async (db: DB, id: string, nama_kategori: string) => {
+    return await db.update(schema.kategori)
+        .set({
+            nama_kategori: nama_kategori
+        })
+        .where(eq(schema.kategori.id, id));
+}
