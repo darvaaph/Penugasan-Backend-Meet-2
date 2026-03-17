@@ -10,7 +10,8 @@
 		{
 			"binding": "sistem_manajemen_kantin_db",
 			"database_name": "sistem-manajemen-kantin-db",
-			"database_id": "46dc5da6-bf1b-405f-961f-8f43cd75d104"
+			"database_id": "46dc5da6-bf1b-405f-961f-8f43cd75d104",
+      "migrations_dir": "drizzle"
 		}
 	]
 }

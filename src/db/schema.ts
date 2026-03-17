@@ -3,7 +3,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 export const kategori = sqliteTable("kategori", {
     id: text("id").primaryKey(),
     nama_kategori: text("nama_kategori").notNull(),
-    created_at: text("created_at").default(new Date().toISOString())
+    created_at: text("created_at").$defaultFn(() => new Date().toISOString())
 });
 
 export const menu = sqliteTable("menu", {
@@ -12,5 +12,5 @@ export const menu = sqliteTable("menu", {
     nama_menu: text("nama_menu").notNull(),
     harga: integer("harga").notNull(),
     stok: integer("stok").notNull().default(0),
-    created_at: text("created_at").default(new Date().toISOString())
+    created_at: text("created_at").$defaultFn(() => new Date().toISOString())
 });
