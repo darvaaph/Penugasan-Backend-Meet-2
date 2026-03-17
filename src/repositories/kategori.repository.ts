@@ -28,3 +28,7 @@ export const updateKategori = async (db: DB, id: string, nama_kategori: string) 
         })
         .where(eq(schema.kategori.id, id));
 }
+
+export const deleteKategori = async (db: DB, id: string) => {
+    return await db.delete(schema.kategori).where(eq(schema.kategori.id, id));
+}
