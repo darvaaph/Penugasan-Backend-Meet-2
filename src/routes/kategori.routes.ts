@@ -12,43 +12,62 @@ type Bindings = {
 const kategoriRoutes = new Hono<{ Bindings: Bindings}>();
 
 kategoriRoutes.get('/', async (c) => {
-    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
-    const data = await kategoriService.getAllKategori(db);
-    return successResponse(c, 200, "Berhasil mengambil daftar kategori", data);
+    try {
+        const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+        const data = await kategoriService.getAllKategori(db);
+        return successResponse(c, 200, "Berhasil mengambil daftar kategori", data);
+    } catch (error) {
+        return errorResponse(c, 404, "Kategori tidak ditemukan");
+    }
 });
 
 kategoriRoutes.get('/:id', async (c) => {
     // get kategori by id
-    const id = c.req.param('id');
-    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
-    const data = await kategoriService.getKategoriById(db, id);
-    return successResponse(c, 200, "Berhasil mengambil kategori", data);
+    try {
+        const id = c.req.param('id');
+        const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+        const data = await kategoriService.getKategoriById(db, id);
+        return successResponse(c, 200, "Berhasil mengambil kategori", data);
+    } catch (error) {
+        return errorResponse(c, 404, "Kategori tidak ditemukan");
+    }
 })
 
 kategoriRoutes.post('/', async (c) => {
     // create kategori
-    const { nama_kategori } = await c.req.json();
-    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
-    const data = await kategoriService.createKategori(db, nama_kategori);
-    return successResponse(c, 201, "Kategori berhasil ditambahkan", data);
+    try {
+        const { nama_kategori } = await c.req.json();
+        const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+        const data = await kategoriService.createKategori(db, nama_kategori);
+        return successResponse(c, 201, "Kategori berhasil ditambahkan", data);
+    } catch (error) {
+        return errorResponse(c, 404, "Kategori tidak ditemukan");
+    }
 })
 
 kategoriRoutes.patch('/:id', async (c) => {
     // update kategori
-    const id = c.req.param('id');
-    const { nama_kategori } = await c.req.json();
-    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
-    const data = await kategoriService.updateKategori(db, id, nama_kategori);
-    return successResponse(c, 200, "Kategori berhasil diupdate", data);
+    try {
+        const id = c.req.param('id');
+        const { nama_kategori } = await c.req.json();
+        const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+        const data = await kategoriService.updateKategori(db, id, nama_kategori);
+        return successResponse(c, 200, "Kategori berhasil diupdate", data);
+    } catch (error) {
+        return errorResponse(c, 404, "Kategori tidak ditemukan");
+    }
 })
 
 kategoriRoutes.delete('/:id', async (c) => {
     // delete kategori
-    const id = c.req.param('id');
-    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
-    const data = await kategoriService.deleteKategori(db, id);
-    return successResponse(c, 200, "Kategori berhasil dihapus", data);
-
+    try {
+        const id = c.req.param('id');
+        const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+        const data = await kategoriService.deleteKategori(db, id);
+        return successResponse(c, 200, "Kategori berhasil dihapus", data);
+    } catch (error) {
+        return errorResponse(c, 404, "Kategori tidak ditemukan");
+    }
 })
 
 export default kategoriRoutes;
