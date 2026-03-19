@@ -35,11 +35,20 @@ kategoriRoutes.post('/', async (c) => {
 
 kategoriRoutes.patch('/:id', async (c) => {
     // update kategori
-    
+    const id = c.req.param('id');
+    const { nama_kategori } = await c.req.json();
+    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+    const data = await kategoriService.updateKategori(db, id, nama_kategori);
+    return successResponse(c, 200, "Kategori berhasil diupdate", data);
 })
 
 kategoriRoutes.delete('/:id', async (c) => {
     // delete kategori
+    const id = c.req.param('id');
+    const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
+    const data = await kategoriService.deleteKategori(db, id);
+    return successResponse(c, 200, "Kategori berhasil dihapus", data);
+
 })
 
 export default kategoriRoutes;
