@@ -23,21 +23,21 @@ export const createKategori = async (db: DB, nama_kategori: string) => {
 }
 
 export const updateKategori = async (db: DB, id: string, nama_kategori: string) => {
-    const kategori = await kategoriRepository.updateKategori(db, id, nama_kategori);
+    const existing = await kategoriRepository.getKategoriById(db, id);
 
-    if (kategori.length === 0) {
+    if (existing.length === 0) {
         throw new Error("Kategori Tidak di Temukan");
     }
 
-    return kategori[0];
+    return await kategoriRepository.updateKategori(db, id, nama_kategori);
 }
 
 export const deleteKategori = async (db: DB, id: string) => {
-    const kategori = await kategoriRepository.deleteKategori(db, id);
+    const kategori = await kategoriRepository.getKategoriById(db, id);
 
     if (kategori.length === 0) {
         throw new Error("Kategori Tidak di Temukan");
     }
 
-    return kategori[0];
+    return kategoriRepository.deleteKategori(db, id);
 }
