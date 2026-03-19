@@ -1,0 +1,27 @@
+import { DrizzleD1Database } from "drizzle-orm/d1";
+import * as schema from "../db/schema"; 
+import { eq } from "drizzle-orm";
+import { generateId } from "../utils/id";
+
+type DB = DrizzleD1Database<typeof schema>;
+
+export const getAllMenu = async (db: DB) => {
+    return await db.select().from(schema.menu);
+}
+
+export const getMenuById = async (db: DB, id: string) => {
+    return await db.select().from(schema.menu).where(eq(schema.menu.id, id));
+}
+
+export const createMenu = async (db: DB, kategori_id: string, nama_menu: string, harga: number, stok: number) => {
+    const id = generateId();
+    await db.insert(schema.menu).values({
+        id: id,
+        kategori_id: kategori_id,
+        nama_menu: nama_menu,
+        harga: harga,
+        stok: stok,
+        created_at: new Date().toISOString()
+    });
+    return await db.select().from(schema.menu).where(eq(schema.menu.id, id));
+}
