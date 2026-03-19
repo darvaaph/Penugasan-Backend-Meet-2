@@ -6,11 +6,11 @@ import { generateId } from "../utils/id";
 type DB = DrizzleD1Database<typeof schema>;
 
 export const getAllMenu = async (db: DB) => {
-    return await db.select().from(schema.menu);
+    return await db.select().from(schema.menu).leftJoin(schema.kategori, eq(schema.menu.kategori_id, schema.kategori.id));
 }
 
 export const getMenuById = async (db: DB, id: string) => {
-    return await db.select().from(schema.menu).where(eq(schema.menu.id, id));
+    return await db.select().from(schema.menu).leftJoin(schema.kategori, eq(schema.menu.kategori_id, schema.kategori.id)).where(eq(schema.menu.id, id));
 }
 
 export const createMenu = async (db: DB, kategori_id: string, nama_menu: string, harga: number, stok: number) => {
