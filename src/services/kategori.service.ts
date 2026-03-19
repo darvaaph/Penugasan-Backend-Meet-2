@@ -28,8 +28,16 @@ export const updateKategori = async (db: DB, id: string, nama_kategori: string) 
     if (kategori.length === 0) {
         throw new Error("Kategori Tidak di Temukan");
     }
+
+    return kategori[0];
 }
 
 export const deleteKategori = async (db: DB, id: string) => {
-    return await kategoriRepository.deleteKategori(db, id);
+    const kategori = await kategoriRepository.deleteKategori(db, id);
+
+    if (kategori.length === 0) {
+        throw new Error("Kategori Tidak di Temukan");
+    }
+
+    return kategori[0];
 }
