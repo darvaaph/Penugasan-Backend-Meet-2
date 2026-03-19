@@ -39,5 +39,5 @@ export const deleteKategori = async (db: DB, id: string) => {
         throw new Error("Kategori Tidak di Temukan");
     }
 
-    return kategoriRepository.deleteKategori(db, id);
+    return await kategoriRepository.deleteKategori(db, id);
 }
