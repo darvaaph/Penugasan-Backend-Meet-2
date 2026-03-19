@@ -12,12 +12,13 @@ type Bindings = {
 const kategoriRoutes = new Hono<{ Bindings: Bindings}>();
 
 kategoriRoutes.get('/', async (c) => {
+    // get all kategori
     try {
         const db = drizzle(c.env.sistem_manajemen_kantin_db, { schema });
         const data = await kategoriService.getAllKategori(db);
         return successResponse(c, 200, "Berhasil mengambil daftar kategori", data);
     } catch (error) {
-        return errorResponse(c, 404, "Kategori tidak ditemukan");
+        return errorResponse(c, 500, "Terjadi kesalahan server");
     }
 });
 
@@ -41,7 +42,7 @@ kategoriRoutes.post('/', async (c) => {
         const data = await kategoriService.createKategori(db, nama_kategori);
         return successResponse(c, 201, "Kategori berhasil ditambahkan", data);
     } catch (error) {
-        return errorResponse(c, 404, "Kategori tidak ditemukan");
+        return errorResponse(c, 500, "Gagal menambahkan kategori");
     }
 })
 
