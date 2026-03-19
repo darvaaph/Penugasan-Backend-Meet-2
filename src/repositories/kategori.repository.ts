@@ -14,11 +14,13 @@ export const getKategoriById = async (db: DB, id: string) => {
 }
 
 export const createKategori = async (db: DB, nama_kategori: string) => {
-    return await db.insert(schema.kategori).values({
-        id: generateId(),
+    const id = generateId();
+    await db.insert(schema.kategori).values({
+        id: id,
         nama_kategori: nama_kategori,
         created_at: new Date().toISOString()
     });
+    return await db.select().from(schema.kategori).where(eq(schema.kategori.id, id));
 }
 
 export const updateKategori = async (db: DB, id: string, nama_kategori: string) => {

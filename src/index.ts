@@ -1,9 +1,13 @@
-import { Hono } from 'hono'
+import { Hono } from 'hono';
+import { D1Database } from '@cloudflare/workers-types';
+import kategoriRoutes from './routes/kategori.routes';
 
-const app = new Hono()
+type Bindings = {
+    sistem_manajemen_kantin_db: D1Database;
+}
 
-app.get('/', (c) => {
-  return c.text('Hello Darva Ganteng!')
-})
+const app = new Hono<{ Bindings: Bindings }>();
 
-export default app
+app.route('/api/kategori', kategoriRoutes);
+
+export default app;
