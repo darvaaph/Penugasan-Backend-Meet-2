@@ -1,12 +1,17 @@
 import { Hono } from "hono";
+import { D1Database } from "@cloudflare/workers-types";
 
-const kategoriRoutes = new Hono();
+type Bindings = {
+    sistem_manajemen_kantin_db: D1Database;
+}
+
+const kategoriRoutes = new Hono<{ Bindings: Bindings}>();
 
 kategoriRoutes.get('/', async (c) => {
     // get all kategori
 })
 
-kategoriRoutes.get('/', async (c) => {
+kategoriRoutes.get('/:id', async (c) => {
     // get kategori by id
     const id = c.req.param('id');
 })
@@ -23,7 +28,5 @@ kategoriRoutes.patch('/:id', async (c) => {
 kategoriRoutes.delete('/:id', async (c) => {
     // delete kategori
 })
-
-
 
 export default kategoriRoutes;
