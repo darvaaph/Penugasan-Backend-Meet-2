@@ -25,3 +25,15 @@ export const createMenu = async (db: DB, kategori_id: string, nama_menu: string,
     });
     return await db.select().from(schema.menu).where(eq(schema.menu.id, id));
 }
+
+export const updateMenu = async (db: DB, id: string, kategori_id: string, nama_menu: string, harga: number, stok: number) => {
+    return await db.update(schema.menu)
+    .set({
+        kategori_id: kategori_id,
+        nama_menu: nama_menu,
+        harga: harga,
+        stok: stok
+    })
+    .where(eq(schema.menu.id, id));
+}
+
